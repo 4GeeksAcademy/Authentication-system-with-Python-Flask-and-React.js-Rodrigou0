@@ -11,6 +11,8 @@ from api.models import db
 from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
+from flask_jwt_extended import JWTManager
+
 
 #from models import Person
 
@@ -30,8 +32,11 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db, compare_type = True)
 db.init_app(app)
 
+app.config["JWT_SECRET_KEY"] = os.getenv("JWT_SECRET")
+jwt = JWTManager(app)
+
 # Allow CORS requests to this API
-CORS(app)
+CORS(app, origins='https://rodrigou0-redesigned-lamp-44xxpxgrgq6fj9g-3000.preview.app.github.dev')
 
 # add the admin
 setup_admin(app)
