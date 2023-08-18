@@ -19,7 +19,7 @@ const Login = () => {
 			alert('password is empty')
 		}else{
 			console.log("inside fetch");
-			fetch(`http://127.0.0.1:3001/api/login`,
+			fetch(`https://rodrigou0-redesigned-lamp-44xxpxgrgq6fj9g-3001.app.github.dev/api/login`,
 			{ 
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
@@ -29,7 +29,7 @@ const Login = () => {
 				console.log('token is here =====>', result);
 				localStorage.setItem("jwt-token", result.token);
 				alert('You are logged in!')
-				navigate('/')
+				navigate('/home')
 			}).catch((err)=> {
 				console.log(err);
 			})
@@ -37,7 +37,7 @@ const Login = () => {
 	}
 
 	return (
-		<div className="container">
+		<div className="container-login">
 			<form>
 				<div class="mb-3">
 					<label for="exampleInputEmail1" class="form-label">Email address</label>
@@ -62,7 +62,7 @@ const Login = () => {
 					/>
 				</div>
 				<div>
-					<button type="submit" class="btn btn-primary" onClick={onSubmit}>Submit</button>
+					<button type="submit" class="btn btn-primary" onClick={onSubmit}>Login</button>
 				</div>
 			</form>
 		</div>
