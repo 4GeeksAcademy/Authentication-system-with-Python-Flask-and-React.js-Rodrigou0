@@ -54,3 +54,22 @@ def get_tasks():
 
     print('Authenticated users data', user)
     return jsonify(res_user), 200
+
+@api.route('/signup', methods=['POST'])
+def signup():
+    data = request.get_json()
+
+    if not data or 'email' not in data or 'password' not in data:
+        return jsonify({'error': 'email and password are required'}), 400
+
+    email = data['email']
+    password = data['password']
+
+    user=User(email= email, password= password, is_active=True)
+    db.session.add(user)
+    db.session.commit()
+    access_token = create_access_token(identity=user.id)
+    return jsonify({ "token": access_token, "user_id": user.id })
+
+if __name__ == '__main__':
+    api.run(debug=True)
